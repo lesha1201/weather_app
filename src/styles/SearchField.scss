@@ -1,0 +1,25 @@
+@import 'colors';
+$border-default: #a5a5a5;
+$border-focus: $accent-color;
+
+.search-field {
+  position: relative;
+}
+
+.search-field__input {
+  border: 1px solid $border-default;
+  border-radius: 100px;
+  outline: none;
+  padding: 1rem 1.5rem;
+
+  &:focus {
+    border: 1px solid $border-focus;
+  }
+}
+
+.search-field__icon {
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+}

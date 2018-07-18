@@ -1,0 +1,37 @@
+@import 'colors';
+.header {
+  height: 70px;
+  background-color: #fff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header__container {
+  display: flex;
+  align-items: center;
+}
+
+.header__logo {
+  font-size: 3rem;
+  font-weight: 600;
+  margin-right: auto;
+  color: $accent-color;
+}
+
+.header__search-block {
+  width: 60%;
+  margin-right: 30px;
+}
+
+.header__search {
+  width: 100%;
+  max-height: 35px;
+}
+
+.header__my-location {
+  font-size: 2rem;
+  cursor: pointer;
+
+  &:hover {
+    color: $accent-color;
+  }
+}
