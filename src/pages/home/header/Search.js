@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SearchField from '../../../components/SearchField';
 import SearchList from './search/SearchList';
-import { MAPBOX_API_KEY } from '../../../config';
+import { citiesAPI } from '../../../utils/api';
 
 class Search extends Component {
   state = {
@@ -36,17 +36,9 @@ class Search extends Component {
 
         if (cityPrefix.length > 0) {
           this.timeout = setTimeout(() => {
-            fetch(
-              `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURI(
-                cityPrefix,
-              )}.json?access_token=${MAPBOX_API_KEY}&types=place&language=en`,
-            ).then(res =>
-              res
-                .json()
-                .then(result =>
-                  this.setState({ cities: result.features || [] }),
-                ),
-            );
+            citiesAPI
+              .searchCities(cityPrefix)
+              .then(cities => this.setState({ cities }));
           }, 600);
         } else {
           this.setState({

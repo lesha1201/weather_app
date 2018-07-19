@@ -1,18 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { addCity as addCityAction } from '../../../../state/cities';
+import { fetchCityForecast as fetchForecastAction } from '../../../../state/cities';
 import { connect } from 'react-redux';
 
-function SearchList({ cities, clearField, addCity }) {
-  // Event delegation
+function omitLocalCities(cities) {
+  let localCities = localStorage.getItem('cities');
+  if (localCities) {
+    localCities = localCities.split(';');
+    return cities.filter(city => !localCities.includes(city.place_name));
+  }
+  return cities;
+}
+
+function SearchList({ cities, clearField, fetchCityForecast }) {
   function onCityClick(city) {
-    addCity(city);
+    const { place_name } = city;
+    fetchCityForecast(place_name);
+
+    // Store city name locally
+    let localCities = localStorage.getItem('cities');
+    if (localCities) {
+      localCities = localCities.split(';');
+      !localCities.includes(place_name) && localCities.push(place_name);
+    } else {
+      localCities = [place_name];
+    }
+    localStorage.setItem('cities', localCities.join(';'));
+
     clearField();
   }
 
+  let newCities = omitLocalCities(cities);
   return (
     <ul className="header__search-list">
-      {cities.map(city => (
+      {newCities.map(city => (
         <li
           key={city.id}
           className="header__search-list-li"
@@ -28,10 +49,10 @@ function SearchList({ cities, clearField, addCity }) {
 SearchList.propTypes = {
   cities: PropTypes.array.isRequired,
   clearField: PropTypes.func.isRequired,
-  addCity: PropTypes.func.isRequired,
+  fetchCityForecast: PropTypes.func.isRequired,
 };
 
 export default connect(
   null,
-  { addCity: addCityAction },
+  { fetchCityForecast: fetchForecastAction },
 )(SearchList);
