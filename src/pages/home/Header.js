@@ -3,7 +3,7 @@ import Logo from './header/Logo';
 import Search from './header/Search';
 import MyLocation from './header/MyLocation';
 
-function Header(props) {
+function Header() {
   return (
     <div className="header">
       <div className="pure-g">
