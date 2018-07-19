@@ -1,19 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { addCity as addCityAction } from '../../../../state/cities';
+import { connect } from 'react-redux';
 
-function SearchList({ cities, clearField }) {
+function SearchList({ cities, clearField, addCity }) {
   // Event delegation
-  function onClick(e) {
-    if (e.target.tagName === 'LI') {
-      clearField();
-      // add city to your list
-    }
+  function onCityClick(city) {
+    addCity(city);
+    clearField();
   }
 
   return (
-    <ul className="header__search-list" onClick={onClick}>
+    <ul className="header__search-list">
       {cities.map(city => (
-        <li key={city.id} className="header__search-list-li">
+        <li
+          key={city.id}
+          className="header__search-list-li"
+          onClick={() => onCityClick(city)}
+        >
           {city.place_name}
         </li>
       ))}
@@ -24,6 +28,10 @@ function SearchList({ cities, clearField }) {
 SearchList.propTypes = {
   cities: PropTypes.array.isRequired,
   clearField: PropTypes.func.isRequired,
+  addCity: PropTypes.func.isRequired,
 };
 
-export default SearchList;
+export default connect(
+  null,
+  { addCity: addCityAction },
+)(SearchList);
