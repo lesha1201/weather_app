@@ -6,8 +6,15 @@ export default function reducer(state = [], action) {
     case ADD_CITY:
       return [...state, action.payload];
     case REMOVE_CITY:
+      var localCities = localStorage.getItem('cities');
+      if (localCities) {
+        localCities = localCities
+          .split(';')
+          .filter(placeName => (placeName !== action.payload ? true : false));
+        localStorage.setItem('cities', localCities.join(';'));
+      }
       return state.filter(
-        city => (city.title !== action.payload.title ? true : false),
+        city => (city.placeName !== action.payload ? true : false),
       );
     default:
       return state;
@@ -15,9 +22,12 @@ export default function reducer(state = [], action) {
 }
 
 export const addCity = city => ({ type: ADD_CITY, payload: city });
-export const removeCity = city => ({ type: REMOVE_CITY, payload: city });
+export const removeCity = placeName => ({
+  type: REMOVE_CITY,
+  payload: placeName,
+});
 
-export const fetchCityForecast = place_name => dispatch =>
+export const fetchCityForecast = placeName => dispatch =>
   weatherAPI
-    .fetchWeather(place_name)
-    .then(forecast => dispatch(addCity(forecast)));
+    .fetchWeather(placeName)
+    .then(forecast => dispatch(addCity({ ...forecast, placeName })));
