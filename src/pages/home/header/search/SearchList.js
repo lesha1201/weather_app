@@ -16,17 +16,6 @@ function SearchList({ cities, clearField, fetchCityForecast }) {
   function onCityClick(city) {
     const { place_name } = city;
     fetchCityForecast(place_name);
-
-    // Store city name locally
-    let localCities = localStorage.getItem('cities');
-    if (localCities) {
-      localCities = localCities.split(';');
-      !localCities.includes(place_name) && localCities.push(place_name);
-    } else {
-      localCities = [place_name];
-    }
-    localStorage.setItem('cities', localCities.join(';'));
-
     clearField();
   }
 

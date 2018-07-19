@@ -11,7 +11,7 @@ function YQL(query) {
 export const weatherAPI = {
   fetchWeather: place_name => {
     var query = YQL(
-      `select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='${place_name}') and u='c'`,
+      `select units, title, location, wind, atmosphere, item from weather.forecast where woeid in (select woeid from geo.places(1) where text='${place_name}') and u='c'`,
     );
 
     return fetch(query).then(res =>
@@ -28,10 +28,15 @@ export const weatherAPI = {
 };
 
 export const citiesAPI = {
-  searchCities: cityPrefix =>
-    fetch(
+  searchCities: (cityPrefix, latitude) => {
+    if (latitude) {
+      // cityPrefix == longitude
+      cityPrefix += ', ' + latitude;
+    }
+    return fetch(
       `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURI(
         cityPrefix,
       )}.json?access_token=${MAPBOX_API_KEY}&types=place&language=en`,
-    ).then(res => res.json().then(result => result.features || [])),
+    ).then(res => res.json().then(result => result.features || []));
+  },
 };
