@@ -15,13 +15,14 @@ export const weatherAPI = {
     );
 
     return fetch(query).then(res =>
-      res.json().then((res, rej) => {
-        return new Promise(
-          response => {
+      res.json().then(res => {
+        return new Promise((response, reject) => {
+          if (res.query.count > 0) {
             response(res.query.results.channel);
-          },
-          reject => reject(rej),
-        );
+          } else {
+            reject("Can't fetch");
+          }
+        });
       }),
     );
   },
@@ -30,7 +31,7 @@ export const weatherAPI = {
 export const citiesAPI = {
   searchCities: (cityPrefix, latitude) => {
     if (latitude) {
-      // cityPrefix == longitude
+      // then cityPrefix == longitude
       cityPrefix += ', ' + latitude;
     }
     return fetch(

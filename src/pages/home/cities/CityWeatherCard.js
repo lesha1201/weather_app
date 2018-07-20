@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { removeCity as removeCityAction } from '../../../state/cities';
 import OtherDay from './cityWeatherCard/OtherDay';
+import { getWeatherImgName } from '../../../utils/helpers';
 
 const CityWeatherCard = ({ city, removeCity }) => {
   const title = `${city.location.city}, ${city.location.country}`;
@@ -30,7 +31,9 @@ const CityWeatherCard = ({ city, removeCity }) => {
           <div className="city-card__accent-forecast">
             <img
               className="city-card__today-img"
-              src="//ssl.gstatic.com/onebox/weather/64/partly_cloudy.png"
+              src={`../../../../img/weather-icons/${getWeatherImgName(
+                city.item.condition.code,
+              )}`}
               alt="Mostly Sunny"
             />
             <div className="city-card__today-temp">

@@ -10,7 +10,6 @@ import App from './App';
 // Import styles
 import './styles/index.scss';
 import './styles/Home.scss';
-import './styles/Cities.scss';
 
 ReactDOM.render(
   <BrowserRouter>

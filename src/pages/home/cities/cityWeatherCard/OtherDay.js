@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { getWeatherImgName } from '../../../../utils/helpers';
 
 const OtherDay = ({ forecast }) => {
   return (
@@ -7,7 +8,9 @@ const OtherDay = ({ forecast }) => {
       <div className="city-cary__othery-day-title">{forecast.day}</div>
       <img
         className="city-card__othery-day-img"
-        src="//ssl.gstatic.com/onebox/weather/64/partly_cloudy.png"
+        src={`../../../../img/weather-icons/${getWeatherImgName(
+          forecast.code,
+        )}`}
         alt="Mostly Sunny"
       />
       <div className="city-cary__othery-day-title">{forecast.low}&#8451;</div>
@@ -19,6 +22,7 @@ OtherDay.propTypes = {
   forecast: PropTypes.shape({
     day: PropTypes.string.isRequired,
     low: PropTypes.string.isRequired,
+    code: PropTypes.string.isRequired,
   }).isRequired,
 };
 

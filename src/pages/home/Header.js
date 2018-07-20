@@ -6,7 +6,7 @@ function Header() {
   return (
     <div className="header">
       <div className="pure-g">
-        <div className="pure-u-7-12 margin-h-center header__container">
+        <div className="pure-u-1 pure-u-md-2-3 pure-u-xl-7-12 margin-h-center header__container">
           <Logo />
           <Search />
         </div>

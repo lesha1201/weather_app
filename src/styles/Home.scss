@@ -1,8 +1,14 @@
 @import 'colors';
+
+/*--------------------------------------*\
+  #Header
+\*--------------------------------------*/
+
 .header {
   height: 70px;
   background-color: #fff;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 0 20px;
 }
 
 .header__container {
@@ -49,5 +55,133 @@
 
   &:hover {
     background: #eeeeee;
+  }
+}
+
+/*--------------------------------------*\
+  #Cities
+\*--------------------------------------*/
+
+.cities {
+  padding: 40px 20px;
+}
+
+.cities__heading {
+  font-size: 3rem;
+  font-weight: 300;
+  margin-bottom: 40px;
+}
+
+.cities__cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.city-card {
+  position: relative;
+  flex-basis: 48%;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  background: #fff;
+  color: #505050;
+  margin-bottom: 40px;
+}
+
+.city-card__title {
+  display: flex;
+  margin-bottom: 15px;
+  font-weight: 300;
+  font-size: 3rem;
+}
+
+.city-card__location-icon {
+  color: $green;
+  margin-left: 20px;
+}
+
+.city-card__accent-forecast {
+  display: flex;
+  align-items: center;
+}
+
+.city-card__today-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  color: #000;
+}
+
+.city-card__today-img {
+  width: 80px;
+  margin-right: 20px;
+}
+
+.city-card__today-temp {
+  font-size: 3.5rem;
+}
+
+.city-card__info-title {
+  font-weight: 400;
+  margin-right: 15px;
+}
+
+.city-card__info-list {
+  list-style: none;
+}
+
+.city-card__close-btn {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  border: none;
+  background: none;
+  color: #e72d2d;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.city-card__other-days {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.city-card__other-day {
+  text-align: center;
+  margin-bottom: 10px;
+  &:not(:last-of-type) {
+    margin-right: 10px;
+  }
+}
+
+.city-card__othery-day-img {
+  width: 48px;
+}
+
+@media only screen and (max-width: 1100px) {
+  .city-card {
+    flex-basis: 100%;
+  }
+}
+
+@media only screen and (max-width: 490px) {
+  .header__logo {
+    display: none;
+  }
+
+  .header__search-block {
+    width: 100%;
+  }
+
+  .city-card__other-days {
+    justify-content: space-around;
   }
 }
